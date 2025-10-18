@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuyển hướng theo họ và tên</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #fff0f5;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      width: 250px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      background-color: #ff66b3;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff3385;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mỹ nhân làm ơn cho chúng tôi biết tên nhé! </h1>
+  <input type="text" id="nameInput" placeholder="Ví dụ: Nguyễn Văn A">
+  <button onclick="redirect()">ENTER</button>
+
+  <script>
+  function removeVietnameseTones(str) {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // Bỏ dấu thanh
+      .replace(/đ/g, "d").replace(/Đ/g, "D");
+  }
+
+  function redirect() {
+    let name = document.getElementById("nameInput").value.trim().toLowerCase();
+    // Bỏ dấu tiếng Việt
+    name = removeVietnameseTones(name);
+
+    // Thay khoảng trắng bằng dấu gạch dưới
+    let fileName = "page_" + name.replace(/\s+/g, "_") + ".html";
+
+    const validPages = [
+      "page_nguyen_phuong_thao.html",
+      "page_le_mai_trang.html",
+      "page_nguyen_vu_hoang_anh.html"
+    ];
+
+    if (validPages.includes(fileName)) {
+      window.location.href = fileName;
+    } else {
+      alert("Không tìm thấy trang cho: " + name);
+    }
+  }
+
+  // có thể ấn ENTER thay vì ấn vào nút ENTER trên màn hình
+  document.getElementById("nameInput").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      redirect();
+    }
+  });
+</script>
+
+</body>
+</html>

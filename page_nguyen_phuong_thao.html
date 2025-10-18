@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiệp 20/10 Dành Tặng Bạn Nữ</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffe6f0; /* Hồng nhạt */
+    overflow: hidden;
+    font-family: "Segoe UI", cursive, sans-serif;
+  }
+
+  .heart-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    width: 250px;
+    height: 250px;
+    clip-path: path("M 125,220 C 30,150 0,90 60,40 A 60,60 0 0,1 125,70 A 60,60 0 0,1 190,40 C 250,90 220,150 125,220 Z");
+    background: url('531884792_1284410196478111_6529815344159234364_n.jpg') center/cover no-repeat;
+    background-size: 80%;  
+    box-shadow: 0 0 30px rgba(255,105,180,0.5);
+    border: 3px solid #ffb6c1;
+  }
+
+  .floating-heart {
+    position: absolute;
+    bottom: -50px;
+    font-size: 18px;
+    color: #ff80aa;
+    animation: floatUp linear forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0.9;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+  }
+
+  h1 {
+    text-align: center;
+    color: #ff6699;
+    margin-top: 30px;
+    font-size: 28px;
+    text-shadow: 2px 2px 4px #fff;
+  }
+
+button {
+  position: absolute;
+  top: 75%; /* Đặt nút bên dưới trái tim, có thể tăng/giảm tùy khoảng cách */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ff99cc;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff66b2;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+</style>
+</head>
+<body>
+
+<h1>💖 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💖</h1>
+
+<div class="heart-frame"></div>
+
+<script>
+const wishes = [
+  "💗 Chúc bạn luôn xinh đẹp!",
+  "🌸 Mãi rạng rỡ và yêu đời!",
+  "💕 Hạnh phúc tràn đầy nhé!",
+  "🌷 Cười thật tươi mỗi ngày!",
+  "💖 Thành công và tự tin!",
+  "🌺 Luôn được yêu thương!"
+];
+
+function createFloatingHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("floating-heart");
+  heart.innerHTML = "❤️<br>" + wishes[Math.floor(Math.random() * wishes.length)];
+  document.body.appendChild(heart);
+
+  // Vị trí ngẫu nhiên
+  heart.style.left = Math.random() * window.innerWidth + "px";
+
+  // Thời gian bay ngẫu nhiên
+  const duration = 6 + Math.random() * 5;
+  heart.style.animationDuration = duration + "s";
+
+  // Xóa khi bay xong
+  setTimeout(() => {
+    heart.remove();
+  }, duration * 1000);
+}
+
+// Tạo tim liên tục
+setInterval(createFloatingHeart, 900);
+</script>
+
+<button onclick="myFunction()">Mỹ Nhân</button>
+
+<script>
+      function myFunction() {
+        window.location.href = 'YOUR_HTML_PAGE.html';
+      }
+ </script>
+
+ 
+</body>
+</html>
