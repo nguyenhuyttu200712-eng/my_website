@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chúc Mừng 20/10 🌸</title>
+
+  <!-- Font viết tay (giống F4) -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #ffd7e6;
+      --bg2: #ffb6d5;
+      --petal1: #fff3f8;
+      --petal2: #ffc6e0;
+      --center: #ff7aa2;
+      --text: #ffe9b0;
+    }
+
+    html,body{height:100%;margin:0;font-family:'Pacifico', cursive;}
+    body{
+      background: radial-gradient(circle at 10% 10%, #ffeef6 0%, transparent 25%),
+                  linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);
+      overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+    }
+
+    .garden{
+      position:relative;
+      width:100%;height:100%;
+      pointer-events:none;
+      z-index:1; /* HOA Ở LỚP DƯỚI */
+    }
+
+    /* ====== PHẦN CHỮ ====== */
+    .title-box{
+      position:absolute;
+      top:20%;
+      left:50%;
+      transform:translateX(-50%);
+      text-align:center;
+      z-index:10; /* CHỮ Ở TRÊN HOA */
+    }
+
+    .line{
+      font-size:44px;
+      color:var(--text);
+      text-shadow:0 0 10px rgba(0,0,0,0.25);
+      white-space:nowrap;
+      opacity:0;
+      animation:fadeIn 1s ease forwards;
+    }
+
+    .line:nth-child(1){animation-delay:0.5s}
+    .line:nth-child(2){animation-delay:1.5s}
+    .line:nth-child(3){animation-delay:2.5s}
+
+    @keyframes fadeIn{
+      from{opacity:0;filter:blur(5px)}
+      to{opacity:1;filter:blur(0)}
+    }
+
+    /*TIM BAY*/
+    .heart{
+    position:absolute;
+    bottom: -20px;
+    color:#ff9fb3;
+    font-size:18px;
+    animation:rise 4s linear forwards;
+    opacity:0.85;
+    z-index:5; /* thấp hơn chữ, cao hơn hoa */
+    }
+
+    @keyframes rise{
+    0%{transform:translateY(0) scale(1);opacity:0.9}
+    100%{transform:translateY(-160px) scale(1.6);opacity:0}
+    }
+
+    /* HOA*/
+    .flower{
+      position:absolute;
+      transform-origin:50% 80%;
+      filter:drop-shadow(0 6px 10px rgba(0,0,0,0.08));
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%{transform: translateY(0) rotate(-2deg)}
+      50%{transform: translateY(-12px) rotate(2deg)}
+      100%{transform: translateY(0) rotate(-2deg)}
+    }
+
+    .petal{transform-origin:50% 100%;opacity:0;transform:scale(0.1) translateY(8px);}
+    .center{opacity:0;transform:scale(0.1)}
+
+    @keyframes bloom{
+      0%{opacity:0;transform:scale(0.1)}
+      60%{opacity:1;transform:scale(1.08)}
+      100%{opacity:1;transform:scale(1)}
+    }
+
+    @keyframes blink{
+      0%{opacity:0;transform:scale(0.1)}
+      60%{opacity:1;transform:scale(1.05)}
+      100%{opacity:1;transform:scale(1)}
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- CHỮ -->
+  <div class="title-box">
+    <div class="line">Chúc Mừng</div>
+    <div class="line">Ngày Phụ Nữ Việt Nam</div>
+    <div class="line">20/10</div>
+  </div>
+
+  <!-- HOA -->
+  <div class="garden" id="garden"></div>
+
+  <script>
+    /* TIM BAY */
+function createFloatingHeart() {
+    const count = 3 + Math.floor(Math.random() * 3); // tạo 3 đến 5 trái tim
+    for (let i = 0; i < count; i++) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    document.body.appendChild(heart);
+
+    // Vị trí ngẫu nhiên
+    heart.style.left = Math.random() * window.innerWidth + "px";
+
+    // Thời gian bay ngẫu nhiên
+    const duration = 4 + Math.random() * 3;
+    heart.style.animationDuration = duration + "s";
+
+    // Xoá tim sau khi bay xong
+    setTimeout(() => heart.remove(), duration * 1000);
+  }
+}
+
+    // tạo tim liên tục
+    setInterval(createFloatingHeart, 300);
+
+    /*HOA */
+    function makeFlower(size=120, p1=null,p2=null,c=null){
+      const xmlns='http://www.w3.org/2000/svg';
+      const svg=document.createElementNS(xmlns,'svg');
+      svg.setAttribute('viewBox','0 0 100 120');
+      svg.setAttribute('width',size);
+      svg.setAttribute('height',size*1.05);
+      for(let i=0;i<6;i++){
+        const g=document.createElementNS(xmlns,'g');
+        g.setAttribute('transform',`rotate(${i*60} 50 50)`);
+        const path=document.createElementNS(xmlns,'path');
+        path.setAttribute('d','M50 28 C40 18, 24 18, 24 40 C24 62, 50 62, 50 80 C50 62, 76 62, 76 40 C76 18, 60 18, 50 28 Z');
+        path.setAttribute('fill',i%2===0?'var(--petal1)':'var(--petal2)');
+        path.setAttribute('class','petal');g.appendChild(path);svg.appendChild(g);
+      }
+      const center=document.createElementNS(xmlns,'circle');
+      center.setAttribute('cx','50');center.setAttribute('cy','50');
+      center.setAttribute('r','9');center.setAttribute('fill','var(--center)');
+      center.setAttribute('class','center');svg.appendChild(center);
+      return svg;
+    }
+
+    function plant(x,y,opts={}){
+      const g=document.getElementById('garden');
+      const w=document.createElement('div');
+      w.className='flower';
+      w.style.left=(x*100)+'%';
+      w.style.top=(y*100)+'%';
+      const size=opts.size||60+Math.random()*120;
+      w.style.width=size+'px';
+      w.style.height=(size*1.05)+'px';
+      w.style.animationDuration=(6+Math.random()*6)+'s';
+      w.style.animationDelay=(Math.random()*4)+'s';
+      const svg=makeFlower(size);
+      w.appendChild(svg);
+      const petals=w.querySelectorAll('.petal');
+      petals.forEach((p,i)=>{
+        p.style.animation=`bloom 1s ease-out ${Math.random()*1.5+i*0.05}s forwards`;
+      });
+      w.querySelector('.center').style.animation=`blink 1s ease-out 0.6s forwards`;
+      w.style.opacity=0;
+      w.animate([{opacity:0},{opacity:1}],{duration:600,fill:'forwards'});
+      g.appendChild(w);
+      return w;
+    }
+
+    function scatter(count=28){
+      for(let i=0;i<count;i++){
+        const x=Math.random();
+        const y=0.35+Math.random()*0.55; // ĐẨY HOA XUỐNG THẤP – KHÔNG CHE CHỮ
+        plant(x,y,{size:40+Math.random()*120});
+      }
+    }
+    scatter(40);
+  </script>
+
+</body>
+</html>
